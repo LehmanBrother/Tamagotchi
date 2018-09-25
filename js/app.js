@@ -11,6 +11,9 @@ class Tamagotchi {
 		this.age = age;
 		this.isAlive = isAlive;
 	}
+	name() {
+		this.name = game.currentName;
+	}
 	die() {
 		console.log(this.name + " has died!");
 		this.isAlive = false;
@@ -24,6 +27,7 @@ Game object
 const game = {
 	totalIntervals: 0,
 	light: true,
+	currentName: "Jerry",
 	startGame() {
 		this.displayHunger();
 		this.displaySleepiness();
@@ -31,16 +35,16 @@ const game = {
 		this.displayAge();
 	},
 	displayHunger() {
-		$('h1.hunger').text('Hunger: ' + jerry.hunger);
+		$('h1.hunger').text('Hunger: ' + tam1.hunger);
 	},
 	displaySleepiness() {
-		$('h1.sleepiness').text('Sleepiness: ' + jerry.sleepiness);
+		$('h1.sleepiness').text('Sleepiness: ' + tam1.sleepiness);
 	},
 	displayBoredom() {
-		$('h1.boredom').text('Boredom: ' + jerry.boredom);
+		$('h1.boredom').text('Boredom: ' + tam1.boredom);
 	},
 	displayAge() {
-		$('h1.age').text('Age: ' + jerry.age);
+		$('h1.age').text('Age: ' + tam1.age);
 	},
 }
 
@@ -48,7 +52,7 @@ const game = {
 Instantiate main tamagotchi
 ***********************************/
 
-const jerry = new Tamagotchi("Jerry Smith",1,1,1,0,true);
+const tam1 = new Tamagotchi("Jerry",1,1,1,0,true);
 
 /***********************************
 Button listeners
@@ -56,14 +60,14 @@ Button listeners
 
 $('button.hunger').on('click', () => {
 	if(game.light === true) {
-		if(jerry.hunger >= 6) {
-			jerry.hunger-=5;
+		if(tam1.hunger >= 6) {
+			tam1.hunger-=5;
 		} else {
-			jerry.hunger = 1;
+			tam1.hunger = 1;
 		}
 		game.displayHunger();
 	} else {
-		$('#alert').text("The light must be on to feed Jerry.");
+		$('#alert').text("The light must be on to feed " + tam1.name + ".");
 		setTimeout(() => {
 			$('#alert').empty();
 		},3000)
@@ -84,14 +88,14 @@ $('button.sleepiness').on('click', () => {
 
 $('button.boredom').on('click', () => {
 	if(game.light === true) {
-		if(jerry.boredom >= 6) {
-			jerry.boredom-=5;
+		if(tam1.boredom >= 6) {
+			tam1.boredom-=5;
 		} else {
-			jerry.boredom = 1;
+			tam1.boredom = 1;
 		}
 		game.displayBoredom();
 	} else {
-		$('#alert').text("The light must be on to play with Jerry.");
+		$('#alert').text("The light must be on to play with " + tam1.name + ".");
 		setTimeout(() => {
 			$('#alert').empty();
 		},3000)
@@ -103,52 +107,52 @@ Interval progression/logic
 ***********************************/
 
 setInterval(() => {
-	if(jerry.isAlive) {
+	if(tam1.isAlive) {
 		game.totalIntervals++;
 		if(game.light === true) {
-			jerry.boredom++;
+			tam1.boredom++;
 			game.displayBoredom();
 			if(game.totalIntervals % 2 === 0) {
-				jerry.hunger++;
+				tam1.hunger++;
 				game.displayHunger();
 			}
 			if(game.totalIntervals % 3 === 0) {
-				jerry.sleepiness++;
+				tam1.sleepiness++;
 				game.displaySleepiness();
 			}
 			if(game.totalIntervals % 100 === 0) {
-				jerry.age++;
+				tam1.age++;
 				game.displayAge();
 			}
 		} else {
 			if(game.totalIntervals % 4 === 0) {
-				jerry.hunger++;
+				tam1.hunger++;
 				game.displayHunger();
 			}
 			if(game.totalIntervals % 3 === 0) {
-				if(jerry.sleepiness >= 3) {
-					jerry.sleepiness-=2;
+				if(tam1.sleepiness >= 3) {
+					tam1.sleepiness-=2;
 				} else {
-					jerry.sleepiness = 1;
+					tam1.sleepiness = 1;
 				}
 				game.displaySleepiness();
 			}
 			if(game.totalIntervals % 100 === 0) {
-				jerry.age++;
+				tam1.age++;
 				game.displayAge();
 			}
 		}
-		if(jerry.boredom >= 10) {
-			$('#alert').text("Jerry has died of boredom!");
-			jerry.die();
+		if(tam1.boredom >= 10) {
+			$('#alert').text(tam1.name + " has died of boredom!");
+			tam1.die();
 		}
-		if(jerry.hunger >= 10) {
-			$('#alert').text("Jerry has died of starvation!");
-			jerry.die();
+		if(tam1.hunger >= 10) {
+			$('#alert').text(tam1.name + " has died of starvation!");
+			tam1.die();
 		}
-		if(jerry.sleepiness >= 10) {
-			$('#alert').text("Jerry has died of sleepiness!");
-			jerry.die();
+		if(tam1.sleepiness >= 10) {
+			$('#alert').text(tam1.name + " has died of sleepiness!");
+			tam1.die();
 		}
 	}
 },
