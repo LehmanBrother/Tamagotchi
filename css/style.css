@@ -1,0 +1,11 @@
+.jdiv {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 500px;
+}
+
+.jerry {
+	width: 139px;
+	height: 204px;
+}

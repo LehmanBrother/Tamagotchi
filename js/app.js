@@ -17,6 +17,8 @@ const gerald = new Tamagotchi("Gerald",0,0,0,0);
 
 //Display image to represent pet
 
+
+
 //Display metrics:
 	//Hunger (1-10)
 	//Sleepiness (1-10)
