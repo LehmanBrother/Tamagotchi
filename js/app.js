@@ -13,17 +13,25 @@ class Tamagotchi {
 
 //Instantiate
 
-const gerald = new Tamagotchi("Gerald",0,0,0,0);
+const jerry = new Tamagotchi("Jerry Smith",1,1,1,0);
 
 //Display image to represent pet
-
-
 
 //Display metrics:
 	//Hunger (1-10)
 	//Sleepiness (1-10)
 	//Boredom (1-10)
 	//Age
+
+// let hunger = 1;
+// let sleepiness = 1;
+// let boredom = 1; 
+// let age = 0;
+
+$('h1.hunger').text('Hunger: ' + jerry.hunger);
+$('h1.sleepiness').text('Sleepiness: ' + jerry.sleepiness);
+$('h1.boredom').text('Boredom: ' + jerry.boredom);
+$('h1.age').text('Age: ' + jerry.age);
 
 //Buttons to feed, turn off lights, play
 

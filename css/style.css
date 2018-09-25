@@ -1,8 +1,15 @@
 .jdiv {
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	height: 500px;
+}
+
+.stats {
+	display: flex;
+	justify-content: space-around;
+	width: 100%;
 }
 
 .jerry {
