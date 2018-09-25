@@ -11,8 +11,8 @@ class Tamagotchi {
 		this.age = age;
 		this.isAlive = isAlive;
 	}
-	name() {
-		this.name = game.currentName;
+	changeName() {
+		this.name = $('input.nameInput').val();
 	}
 	die() {
 		console.log(this.name + " has died!");
@@ -27,7 +27,6 @@ Game object
 const game = {
 	totalIntervals: 0,
 	light: true,
-	currentName: "Jerry",
 	startGame() {
 		this.displayHunger();
 		this.displaySleepiness();
@@ -55,7 +54,7 @@ Instantiate main tamagotchi
 const tam1 = new Tamagotchi("Jerry",1,1,1,0,true);
 
 /***********************************
-Button listeners
+Button/input listeners
 ***********************************/
 
 $('button.hunger').on('click', () => {
@@ -100,6 +99,11 @@ $('button.boredom').on('click', () => {
 			$('#alert').empty();
 		},3000)
 	}
+})
+
+$('button.nameInput').on('click', () => {
+	console.log("you clicked it");
+	tam1.changeName();
 })
 
 /***********************************
@@ -159,8 +163,6 @@ setInterval(() => {
 1000)
 
 game.startGame();
-
-//Ability to name pet
 
 //CSS for general page styling
 
