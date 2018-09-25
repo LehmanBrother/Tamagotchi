@@ -41,13 +41,22 @@ const game = {
 
 const jerry = new Tamagotchi("Jerry Smith",1,1,1,0);
 
+//make alert text disappear after 3 seconds; probably best done in setInterval
+
 $('button.hunger').on('click', () => {
-	if(jerry.hunger >= 6) {
-		jerry.hunger-=5;
+	if(game.light === true) {
+		if(jerry.hunger >= 6) {
+			jerry.hunger-=5;
+		} else {
+			jerry.hunger = 1;
+		}
+		game.displayHunger();
 	} else {
-		jerry.hunger = 1;
+		$('#alert').text("The light must be on to feed Jerry.");
+		setTimeout(() => {
+			$('#alert').empty();
+		},3000)
 	}
-	game.displayHunger();
 })
 
 $('button.sleepiness').on('click', () => {
@@ -63,12 +72,19 @@ $('button.sleepiness').on('click', () => {
 })
 
 $('button.boredom').on('click', () => {
-	if(jerry.boredom >= 6) {
-		jerry.boredom-=5;
+	if(game.light === true) {
+		if(jerry.boredom >= 6) {
+			jerry.boredom-=5;
+		} else {
+			jerry.boredom = 1;
+		}
+		game.displayBoredom();
 	} else {
-		jerry.boredom = 1;
+		$('#alert').text("The light must be on to play with Jerry.");
+		setTimeout(() => {
+			$('#alert').empty();
+		},3000)
 	}
-	game.displayBoredom();
 })
 
 setInterval(() => {
@@ -84,7 +100,7 @@ setInterval(() => {
 			jerry.sleepiness++;
 			game.displaySleepiness();
 		}
-		if(game.totalIntervals % 10 === 0) {
+		if(game.totalIntervals % 100 === 0) {
 			jerry.age++;
 			game.displayAge();
 		}
@@ -101,7 +117,7 @@ setInterval(() => {
 			}
 			game.displaySleepiness();
 		}
-		if(game.totalIntervals % 10 === 0) {
+		if(game.totalIntervals % 100 === 0) {
 			jerry.age++;
 			game.displayAge();
 		}
@@ -111,15 +127,9 @@ setInterval(() => {
 
 game.startGame();
 
-//Buttons to feed, turn off lights, play
-
 //Ability to name pet
 
 //CSS for general page styling
-
-//Increase pet's age every x minutes
-
-//Increase hunger, sleepiness, and boredom at chosen increment
 
 //Pet dies if any of them hits 10
 
