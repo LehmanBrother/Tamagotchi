@@ -1,20 +1,25 @@
-console.log('js working');
-//Make Tamagotchi class
+/***********************************
+Make tamagotchi class
+***********************************/
 
 class Tamagotchi {
-	constructor(name,hunger,sleepiness,boredom,age) {
+	constructor(name,hunger,sleepiness,boredom,age,isAlive) {
 		this.name = name;
 		this.hunger = hunger;
 		this.sleepiness = sleepiness;
 		this.boredom = boredom;
 		this.age = age;
+		this.isAlive = isAlive;
 	}
 	die() {
-		console.log(name + " has died!");
+		console.log(this.name + " has died!");
+		this.isAlive = false;
 	}
 }
 
-//Instantiate
+/***********************************
+Game object
+***********************************/
 
 const game = {
 	totalIntervals: 0,
@@ -39,9 +44,15 @@ const game = {
 	},
 }
 
-const jerry = new Tamagotchi("Jerry Smith",1,1,1,0);
+/***********************************
+Instantiate main tamagotchi
+***********************************/
 
-//make alert text disappear after 3 seconds; probably best done in setInterval
+const jerry = new Tamagotchi("Jerry Smith",1,1,1,0,true);
+
+/***********************************
+Button listeners
+***********************************/
 
 $('button.hunger').on('click', () => {
 	if(game.light === true) {
@@ -87,39 +98,57 @@ $('button.boredom').on('click', () => {
 	}
 })
 
+/***********************************
+Interval progression/logic
+***********************************/
+
 setInterval(() => {
-	game.totalIntervals++;
-	if(game.light === true) {
-		jerry.boredom++;
-		game.displayBoredom();
-		if(game.totalIntervals % 2 === 0) {
-			jerry.hunger++;
-			game.displayHunger();
-		}
-		if(game.totalIntervals % 3 === 0) {
-			jerry.sleepiness++;
-			game.displaySleepiness();
-		}
-		if(game.totalIntervals % 100 === 0) {
-			jerry.age++;
-			game.displayAge();
-		}
-	} else {
-		if(game.totalIntervals % 4 === 0) {
-			jerry.hunger++;
-			game.displayHunger();
-		}
-		if(game.totalIntervals % 3 === 0) {
-			if(jerry.sleepiness >= 3) {
-				jerry.sleepiness-=2;
-			} else {
-				jerry.sleepiness = 1;
+	if(jerry.isAlive) {
+		game.totalIntervals++;
+		if(game.light === true) {
+			jerry.boredom++;
+			game.displayBoredom();
+			if(game.totalIntervals % 2 === 0) {
+				jerry.hunger++;
+				game.displayHunger();
 			}
-			game.displaySleepiness();
+			if(game.totalIntervals % 3 === 0) {
+				jerry.sleepiness++;
+				game.displaySleepiness();
+			}
+			if(game.totalIntervals % 100 === 0) {
+				jerry.age++;
+				game.displayAge();
+			}
+		} else {
+			if(game.totalIntervals % 4 === 0) {
+				jerry.hunger++;
+				game.displayHunger();
+			}
+			if(game.totalIntervals % 3 === 0) {
+				if(jerry.sleepiness >= 3) {
+					jerry.sleepiness-=2;
+				} else {
+					jerry.sleepiness = 1;
+				}
+				game.displaySleepiness();
+			}
+			if(game.totalIntervals % 100 === 0) {
+				jerry.age++;
+				game.displayAge();
+			}
 		}
-		if(game.totalIntervals % 100 === 0) {
-			jerry.age++;
-			game.displayAge();
+		if(jerry.boredom >= 10) {
+			$('#alert').text("Jerry has died of boredom!");
+			jerry.die();
+		}
+		if(jerry.hunger >= 10) {
+			$('#alert').text("Jerry has died of starvation!");
+			jerry.die();
+		}
+		if(jerry.sleepiness >= 10) {
+			$('#alert').text("Jerry has died of sleepiness!");
+			jerry.die();
 		}
 	}
 },
@@ -130,8 +159,6 @@ game.startGame();
 //Ability to name pet
 
 //CSS for general page styling
-
-//Pet dies if any of them hits 10
 
 //Change image of pet at certain ages
 
