@@ -1,12 +1,19 @@
+console.log('js working');
 //Make Tamagotchi class
 
 class Tamagotchi {
-	constructor() {
-
+	constructor(name,hunger,sleepiness,boredom,age) {
+		this.name = name;
+		this.hunger = hunger;
+		this.sleepiness = sleepiness;
+		this.boredom = boredom;
+		this.age = age;
 	}
 }
 
 //Instantiate
+
+const gerald = new Tamagotchi("Gerald",0,0,0,0);
 
 //Display image to represent pet
 
