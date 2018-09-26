@@ -27,9 +27,10 @@ class Tamagotchi {
 class Morty extends Tamagotchi {
 	constructor(name,prevName,hunger,sleepiness,boredom,age,isAlive) {
 		super(name,prevName,hunger,sleepiness,boredom,age,isAlive);
+		this.ohMan = new Audio("http://peal.io/download/6iens");
 	}
 	pokeResponse() {
-		ohMan.play();
+		this.ohMan.play();
 	}
 }
 
@@ -40,6 +41,10 @@ Game object
 const game = {
 	totalIntervals: 0,
 	light: true,
+	trigger: "",
+	wubba: new Audio("http://peal.io/download/fijtn"),
+	bird: new Audio("http://peal.io/download/r5kd1"),
+	schwifty: new Audio("http://peal.io/download/sjprr"),
 	startGame() {
 		this.displayHunger();
 		this.displaySleepiness();
@@ -92,8 +97,6 @@ const game = {
 	}
 }
 
-const ohMan = new Audio("http://peal.io/download/6iens");
-
 /***********************************
 Instantiate tamagotchi
 ***********************************/
@@ -145,6 +148,22 @@ $('button.boredom').on('click', () => {
 
 $('button.nameInput').on('click', () => {
 	tam1.changeName();
+})
+
+$(document).on('keypress', (e) => {
+	game.trigger = game.trigger + String.fromCharCode(e.keyCode);
+	if(game.trigger.toLowerCase() === 'rick') {
+		game.wubba.play();
+		game.trigger = "";
+	}
+	if(game.trigger.toLowerCase() === 'tammy') {
+		game.bird.play();
+		game.trigger = "";
+	}
+	if(game.trigger.toLowerCase() === 'schwifty') {
+		game.schwifty.play();
+		game.trigger = "";
+	}
 })
 
 /***********************************
