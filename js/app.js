@@ -17,6 +17,7 @@ class Tamagotchi {
 	die() {
 		console.log(this.name + " has died!");
 		this.isAlive = false;
+		$('img').velocity("stop", true);
 	}
 }
 
@@ -32,6 +33,8 @@ const game = {
 		this.displaySleepiness();
 		this.displayBoredom();
 		this.displayAge();
+		this.animate();
+
 	},
 	displayHunger() {
 		$('h1.hunger').text('Hunger: ' + tam1.hunger);
@@ -45,6 +48,17 @@ const game = {
 	displayAge() {
 		$('h1.age').text('Age: ' + tam1.age);
 	},
+	animate() {
+		$('img').velocity({
+		  opacity: [1, 0.55],
+		  width: '+=50',
+		  height: '+=50'
+		}, {
+		  duration: 800,
+		  loop: true, //true to go forever
+		  delay: 20
+		});
+	}
 }
 
 /***********************************
@@ -167,5 +181,3 @@ game.startGame();
 //CSS for general page styling
 
 //Change image of pet at certain ages
-
-//Animate pet while it's alive
