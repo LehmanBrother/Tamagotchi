@@ -5,6 +5,7 @@ Make tamagotchi class
 class Tamagotchi {
 	constructor(name,prevName,hunger,sleepiness,boredom,age,isAlive) {
 		this.name = name;
+		this.prevName = prevName;
 		this.hunger = hunger;
 		this.sleepiness = sleepiness;
 		this.boredom = boredom;
@@ -12,7 +13,9 @@ class Tamagotchi {
 		this.isAlive = isAlive;
 	}
 	changeName() {
+		this.prevName = this.name;
 		this.name = $('input.nameInput').val();
+		game.alert(this.prevName + " was renamed to " + this.name + ".", false, 5000);
 	}
 	die() {
 		console.log(this.name + " has died!");
@@ -63,7 +66,7 @@ const game = {
 		  height: '+=50'
 		}, {
 		  duration: 800,
-		  loop: true, //true to go forever
+		  loop: true,
 		  delay: 20
 		});
 	}
@@ -95,11 +98,9 @@ $('button.hunger').on('click', () => {
 $('button.sleepiness').on('click', () => {
 	if(game.light === true) {
 		$('body').css('background-color','black');
-		$('h1').css('color','white');
 		game.light = false;
 	} else {
 		$('body').css('background-color','white');
-		$('h1').css('color','black');
 		game.light = true;
 	}
 })
@@ -118,7 +119,6 @@ $('button.boredom').on('click', () => {
 })
 
 $('button.nameInput').on('click', () => {
-	console.log("you clicked it");
 	tam1.changeName();
 })
 
