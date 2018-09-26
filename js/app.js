@@ -3,7 +3,7 @@ Make tamagotchi class
 ***********************************/
 
 class Tamagotchi {
-	constructor(name,hunger,sleepiness,boredom,age,isAlive) {
+	constructor(name,prevName,hunger,sleepiness,boredom,age,isAlive) {
 		this.name = name;
 		this.hunger = hunger;
 		this.sleepiness = sleepiness;
@@ -48,6 +48,14 @@ const game = {
 	displayAge() {
 		$('h1.age').text('Age: ' + tam1.age);
 	},
+	alert(msg, perm, timeout) {
+		$('#alert').text(msg);
+		if(perm === false) {
+			setTimeout(() => {
+				$('#alert').empty();
+			},timeout)
+		}
+	},
 	animate() {
 		$('img').velocity({
 		  opacity: [1, 0.55],
@@ -65,7 +73,7 @@ const game = {
 Instantiate main tamagotchi
 ***********************************/
 
-const tam1 = new Tamagotchi("Jerry",1,1,1,0,true);
+const tam1 = new Tamagotchi("Jerry",null,1,1,1,0,true);
 
 /***********************************
 Button/input listeners
@@ -80,10 +88,7 @@ $('button.hunger').on('click', () => {
 		}
 		game.displayHunger();
 	} else {
-		$('#alert').text("The light must be on to feed " + tam1.name + ".");
-		setTimeout(() => {
-			$('#alert').empty();
-		},3000)
+		game.alert("The light must be on to feed " + tam1.name + ".", false, 3000);
 	}
 })
 
@@ -108,10 +113,7 @@ $('button.boredom').on('click', () => {
 		}
 		game.displayBoredom();
 	} else {
-		$('#alert').text("The light must be on to play with " + tam1.name + ".");
-		setTimeout(() => {
-			$('#alert').empty();
-		},3000)
+		game.alert("The light must be on to play with " + tam1.name + ".", false, 3000);
 	}
 })
 
@@ -138,7 +140,7 @@ setInterval(() => {
 				tam1.sleepiness++;
 				game.displaySleepiness();
 			}
-			if(game.totalIntervals % 100 === 0) {
+			if(game.totalIntervals % 30 === 0) {
 				tam1.age++;
 				game.displayAge();
 			}
@@ -155,21 +157,33 @@ setInterval(() => {
 				}
 				game.displaySleepiness();
 			}
-			if(game.totalIntervals % 100 === 0) {
+			if(game.totalIntervals % 30 === 0) {
 				tam1.age++;
 				game.displayAge();
 			}
 		}
+		if(game.totalIntervals === 60) {
+			$('.tam1').attr('src','https://pbs.twimg.com/media/Bf-5MH4CQAAfyG0.jpg');
+			tam1.prevName = tam1.name;
+			tam1.name = "Mr. Crowbar";
+			game.alert(tam1.prevName + " evolved into " + tam1.name + "!",false, 5000);
+		}
+		if(game.totalIntervals === 120) {
+			$('.tam1').attr('src','https://i.imgur.com/WfOBYQE.jpg');
+			tam1.prevName = tam1.name;
+			tam1.name = "Strong Jerry";
+			game.alert(tam1.prevName + " evolved into " + tam1.name + "!",false, 5000);
+		}
 		if(tam1.boredom >= 10) {
-			$('#alert').text(tam1.name + " has died of boredom!");
+			game.alert(tam1.name + " has died of boredom!", true, null);
 			tam1.die();
 		}
 		if(tam1.hunger >= 10) {
-			$('#alert').text(tam1.name + " has died of starvation!");
+			game.alert(tam1.name + " has died of starvation!", true, null);
 			tam1.die();
 		}
 		if(tam1.sleepiness >= 10) {
-			$('#alert').text(tam1.name + " has died of sleepiness!");
+			game.alert(tam1.name + " has died of sleepiness!", true, null);
 			tam1.die();
 		}
 	}
@@ -179,5 +193,3 @@ setInterval(() => {
 game.startGame();
 
 //CSS for general page styling
-
-//Change image of pet at certain ages
