@@ -29,7 +29,7 @@ class Morty extends Tamagotchi {
 		super(name,prevName,hunger,sleepiness,boredom,age,isAlive);
 	}
 	pokeResponse() {
-		
+		ohMan.play();
 	}
 }
 
@@ -91,6 +91,8 @@ const game = {
 		});
 	}
 }
+
+const ohMan = new Audio("http://peal.io/download/6iens");
 
 /***********************************
 Instantiate tamagotchi
@@ -201,7 +203,7 @@ setInterval(() => {
 			$('.tdiv').append('<div class="mdiv"></div>');
 			$('.mdiv').append('<img class="tam2" src="https://res.cloudinary.com/jerrick/image/upload/f_auto,fl_progressive,q_auto,c_fit,w_680/q4jnto3mvzsz5vqxwuin">');
 			tam2.isAlive = true;
-
+			$('.tam2').on('click', tam2.pokeResponse());
 			game.animateTam2();
 		}
 		if(tam1.boredom >= 10) {
