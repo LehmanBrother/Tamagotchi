@@ -1,5 +1,5 @@
 /***********************************
-Make tamagotchi class
+Make tamagotchi class, Morty extension
 ***********************************/
 
 class Tamagotchi {
@@ -20,7 +20,16 @@ class Tamagotchi {
 	die() {
 		console.log(this.name + " has died!");
 		this.isAlive = false;
-		$('img').velocity("stop", true);
+		$('img.tam1').velocity("stop", true);
+	}
+}
+
+class Morty extends Tamagotchi {
+	constructor(name,prevName,hunger,sleepiness,boredom,age,isAlive) {
+		super(name,prevName,hunger,sleepiness,boredom,age,isAlive);
+	}
+	pokeResponse() {
+		
 	}
 }
 
@@ -36,7 +45,7 @@ const game = {
 		this.displaySleepiness();
 		this.displayBoredom();
 		this.displayAge();
-		this.animate();
+		this.animateTam1();
 
 	},
 	displayHunger() {
@@ -59,8 +68,19 @@ const game = {
 			},timeout)
 		}
 	},
-	animate() {
-		$('img').velocity({
+	animateTam1() {
+		$('img.tam1').velocity({
+		  opacity: [1, 0.55],
+		  width: '+=50',
+		  height: '+=50'
+		}, {
+		  duration: 800,
+		  loop: true,
+		  delay: 20
+		});
+	},
+	animateTam2() {
+		$('img.tam2').velocity({
 		  opacity: [1, 0.55],
 		  width: '+=50',
 		  height: '+=50'
@@ -73,10 +93,11 @@ const game = {
 }
 
 /***********************************
-Instantiate main tamagotchi
+Instantiate tamagotchi
 ***********************************/
 
 const tam1 = new Tamagotchi("Jerry",null,1,1,1,0,true);
+const tam2 = new Morty("Morty",null,1,1,1,0,false);
 
 /***********************************
 Button/input listeners
@@ -176,6 +197,13 @@ setInterval(() => {
 			tam1.name = "Strong Jerry";
 			game.alert(tam1.prevName + " evolved into " + tam1.name + "!",false, 5000);
 		}
+		if(game.totalIntervals === 10) {
+			$('.tdiv').append('<div class="mdiv"></div>');
+			$('.mdiv').append('<img class="tam2" src="https://res.cloudinary.com/jerrick/image/upload/f_auto,fl_progressive,q_auto,c_fit,w_680/q4jnto3mvzsz5vqxwuin">');
+			tam2.isAlive = true;
+
+			game.animateTam2();
+		}
 		if(tam1.boredom >= 10) {
 			game.alert(tam1.name + " has died of boredom!", true, null);
 			tam1.die();
@@ -193,5 +221,3 @@ setInterval(() => {
 1000)
 
 game.startGame();
-
-//CSS for general page styling

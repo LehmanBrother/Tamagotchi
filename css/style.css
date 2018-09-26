@@ -40,6 +40,14 @@
 	height: 600px;
 }
 
+.mdiv {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	width: 40%;
+	border: 1px solid cyan;
+}
+
 .sleepiness {
 	background-color: #00BFFF;
 	padding: 5px;
@@ -57,4 +65,17 @@
 	width: 139px;
 	height: 204px;
 	border-radius: 5px;
+}
+
+.tam2 {
+	width: 139px;
+	height: 204px;
+	border-radius: 5px;
+}
+
+.tdiv {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	width: 100%;
 }
