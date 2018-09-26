@@ -43,8 +43,13 @@ const game = {
 	light: true,
 	trigger: "",
 	wubba: new Audio("http://peal.io/download/fijtn"),
-	bird: new Audio("http://peal.io/download/r5kd1"),
+	tammy: new Audio("http://peal.io/download/r5kd1"),
 	schwifty: new Audio("http://peal.io/download/sjprr"),
+	love: new Audio("http://peal.io/download/ahcd3"),
+	meeseeks: new Audio("http://peal.io/download/et39v"),
+	butthole: new Audio("http://peal.io/download/upr8x"),
+	disqualified: new Audio("http://peal.io/download/wn5l3"),
+	news: new Audio("http://peal.io/download/kechr"),
 	startGame() {
 		this.displayHunger();
 		this.displaySleepiness();
@@ -94,6 +99,10 @@ const game = {
 		  loop: true,
 		  delay: 20
 		});
+	},
+	endGame() {
+		clearInterval(interval);
+		game.alert("Jerry is finally a strong, independent man who don't need no user! Type random stuff to find easter eggs.", true, null);
 	}
 }
 
@@ -152,16 +161,40 @@ $('button.nameInput').on('click', () => {
 
 $(document).on('keypress', (e) => {
 	game.trigger = game.trigger + String.fromCharCode(e.keyCode);
-	if(game.trigger.toLowerCase() === 'rick') {
+	console.log(game.trigger);
+	if(game.trigger.toLowerCase() === 'wubba') {
 		game.wubba.play();
 		game.trigger = "";
 	}
 	if(game.trigger.toLowerCase() === 'tammy') {
-		game.bird.play();
+		game.tammy.play();
 		game.trigger = "";
 	}
 	if(game.trigger.toLowerCase() === 'schwifty') {
 		game.schwifty.play();
+		game.trigger = "";
+	}
+	if(game.trigger.toLowerCase() === 'love') {
+		game.love.play();
+		game.trigger = "";
+	}
+	if(game.trigger.toLowerCase() === 'meeseeks') {
+		game.meeseeks.play();
+		game.trigger = "";
+	}
+	if(game.trigger.toLowerCase() === 'butthole') {
+		game.butthole.play();
+		game.trigger = "";
+	}
+	if(game.trigger.toLowerCase() === 'news') {
+		game.news.play();
+		game.trigger = "";
+	}
+	if(game.trigger.length > 9) {
+		game.disqualified.play();
+		game.trigger = "";
+	}
+	if(e.keyCode === 13) {
 		game.trigger = "";
 	}
 })
@@ -170,7 +203,7 @@ $(document).on('keypress', (e) => {
 Interval progression/logic
 ***********************************/
 
-setInterval(() => {
+const interval = setInterval(() => {
 	if(tam1.isAlive) {
 		game.totalIntervals++;
 		if(game.light === true) {
@@ -218,7 +251,10 @@ setInterval(() => {
 			tam1.name = "Strong Jerry";
 			game.alert(tam1.prevName + " evolved into " + tam1.name + "!",false, 5000);
 		}
-		if(game.totalIntervals === 2) {
+		if(game.totalIntervals >= 122) {
+			game.endGame();
+		}
+		if(game.totalIntervals === 65) {
 			$('.tdiv').append('<div class="mdiv"></div>');
 			$('.mdiv').append('<img class="tam2" src="https://res.cloudinary.com/jerrick/image/upload/f_auto,fl_progressive,q_auto,c_fit,w_680/q4jnto3mvzsz5vqxwuin">');
 			tam2.isAlive = true;
@@ -226,6 +262,7 @@ setInterval(() => {
 				tam2.pokeResponse();
 			});
 			game.animateTam2();
+			game.alert("Morty has been born! He gets annoyed if you click him.")
 		}
 		if(tam1.boredom >= 10) {
 			game.alert(tam1.name + " has died of boredom!", true, null);
