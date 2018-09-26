@@ -98,9 +98,11 @@ $('button.hunger').on('click', () => {
 $('button.sleepiness').on('click', () => {
 	if(game.light === true) {
 		$('body').css('background-color','black');
+		$('#alert').css('color','white');
 		game.light = false;
 	} else {
 		$('body').css('background-color','white');
+		$('#alert').css('color','black');
 		game.light = true;
 	}
 })

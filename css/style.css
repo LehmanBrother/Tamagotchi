@@ -1,3 +1,10 @@
+.age {
+	background-color: #778899;
+	padding: 5px;
+	border: 2px solid #2F4F4F;
+	border-radius: 3px;
+}
+
 .boredom {
 	background-color: #00FF7F;
 	padding: 5px;
